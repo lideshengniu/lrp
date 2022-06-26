@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="BHT.tif" xsi:schemaLocation="http://www.opengis.net/kml/2.2 http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd http://www.google.com/kml/ext/2.2 http://code.google.com/apis/kml/schema/kml22gx.xsd">
+	<name>BHT.tif</name>
+	<Snippet maxLines="0"></Snippet>
+	<GroundOverlay id="ID_0">
+		<name>BHT.tif</name>
+		<Snippet maxLines="0"></Snippet>
+		<drawOrder>1000</drawOrder>
+		<Icon>
+			<href>C:/Users/A/AppData/LocalLow/Google/GoogleEarth/Layer0_1.png</href>
+		</Icon>
+		<LatLonBox>
+			<north>26.7822882483</north>
+			<south>26.3648549463</south>
+			<east>103.1828528375</east>
+			<west>102.8464162955</west>
+		</LatLonBox>
+	</GroundOverlay>
+</Document>
+</kml>
