@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <mars-pannel :visible="true" top="70" left="50" bottom="50" width="400" class="mars">
+    <mars-dialog  title="形变" top="70" left="50" bottom="50" width="400" >
       <div class="bg container-last-chart">
         <div class="right_item">
           <div class="_item_top item_bottom">
@@ -37,8 +36,7 @@
           </div>
         </div>
       </div>
-    </mars-pannel>
-  </div>
+    </mars-dialog>
 </template>
 <script lang="ts" setup>
 import { nextTick, onMounted, ref } from "vue"

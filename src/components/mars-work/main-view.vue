@@ -20,14 +20,14 @@
  * @author 火星吴彦祖 2022-02-19
  */
 import zhCN from "ant-design-vue/es/locale/zh_CN"
-import { computed, provide, ref, reactive } from "vue"
+import { computed, provide, ref, reactive, markRaw } from "vue"
 import { ConfigProvider } from "ant-design-vue"
 import { useWidgetStore } from "@mars/common/store/widget"
 import MarsMap from "@mars/components/mars-work/mars-map.vue"
 import MarsWidget from "./widget.vue"
 
 const locale = zhCN
-const options = reactive({ scene: { center: { lat: 26.285225, lng: 50.037235, alt: 30000.9, heading: 360, pitch: -42.5 } } })
+const options = markRaw({ scene: { center: { lat: 26.285225, lng: 103, alt: 30000.9, heading: 360, pitch: -42.5 } } })
 const widgetStore = useWidgetStore()
 
 const widgets = computed(() => widgetStore.state.widgets)

@@ -37,6 +37,7 @@ const { activate } = useWidget()
 
 const data = [
   { name: "底图", icon: "international", widget: "manage-basemap" },
+  { name: "隐患点", icon: "dot", widget: "point" },
   { name: "图层", icon: "layers", widget: "manage-layers" },
   {
     name: "工具",

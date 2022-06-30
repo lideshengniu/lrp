@@ -50,7 +50,7 @@ function initData(e: any) {
 }
 
 function changeBaseMaps(item: any) {
-  mapWork.changeBaseMaps((active.value = item.uuid))
+  mapWork.changeBaseMaps((active.value = item.id))
 }
 
 function changeTerrain() {

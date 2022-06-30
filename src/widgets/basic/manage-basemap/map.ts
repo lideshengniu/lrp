@@ -18,8 +18,9 @@ export function onUnmounted(): void {
 }
 
 export function changeBaseMaps(id: string) {
-  map.basemap = id
-  console.log("@@")
+  console.log(map)
+    map.basemap = id
+  console.log("@@@@")
   console.log(map.basemap)
 }
 

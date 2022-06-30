@@ -14,6 +14,8 @@ import { getDefaultContextMenu } from "@mars/utils/getDefaultContextMenu"
 import { $alert, $message } from "@mars/components/mars-ui/index"
 import axios from "axios"
 import path from "path"
+import { Turkey } from "@icon-park/svg"
+ const Cesium = mars3d.Cesium
 const a = {
   p: ""
 }
@@ -66,9 +68,12 @@ const emit = defineEmits(["onload"])
 const initMars3d = (option: any) => {
   map = new mars3d.Map(withKeyId.value, option)
   // 问题处
-  const graphicLayer = new mars3d.layer.GraphicLayer()
+  const optionss = { pid: 99, id: 2022, name: "白鹤滩", show: false, type: "graphic" }
+  const graphicLayer = new mars3d.layer.GraphicLayer(optionss)
+ 
   map.addLayer(graphicLayer)
   addDemoGraphic4(graphicLayer)
+//   addDemoGraphic2(graphicLayer)
   function addDemoGraphic4(graphicLayer) {
     const graphicZP = new mars3d.graphic.RectangleEntity({
       positions: [
@@ -83,6 +88,57 @@ const initMars3d = (option: any) => {
     })
     graphicLayer.addGraphic(graphicZP)
   }
+//  function addDemoGraphic6(graphicLayer) {
+//   let _rotation = Math.random()
+//   const graphic = new mars3d.graphic.CircleEntity({
+//     position: new mars3d.LngLatPoint(116.326329, 30.84786, 421.7),
+//     style: {
+//       radius: 1000.0,
+//       // 扫描材质
+//       material: mars3d.MaterialUtil.createMaterialProperty(mars3d.MaterialType.CircleScan, {
+//         image: "img/textures/circle_bg.png",
+//         color: "#ffff00"
+//       }),
+//       stRotation: new Cesium.CallbackProperty(function (e) {
+//         _rotation += 0.1
+//         return _rotation
+//       }, false)
+//     },
+//     attr: { remark: "示例6" },
+//     hasEdit: false // 不允许编辑
+//   })
+//   graphicLayer.addGraphic(graphic) // 还可以另外一种写法: graphic.addTo(graphicLayer)
+// }
+function addDemoGraphic2(graphicLayer) {
+  const graphic = new mars3d.graphic.CircleEntity({
+    position: [103.034716, 26.478833],
+    style: {
+      radius: 200,
+      height: 200,
+      clampToGround: Turkey,
+      material: mars3d.MaterialUtil.createMaterialProperty(mars3d.MaterialType.CircleWave, {
+        color: "#ffff00",
+        count: 2,
+        speed: 20
+      }),
+      label: {
+        text: "我是原始的\n测试换行",
+        font_size: 18,
+        color: "#ffffff",
+        pixelOffsetY: -10,
+        distanceDisplayCondition: true,
+        distanceDisplayCondition_far: 500000,
+        distanceDisplayCondition_near: 0
+      }
+    },
+    attr: { remark: "示例2" }
+  })
+  graphicLayer.addGraphic(graphic) // 还可以另外一种写法: graphic.addTo(graphicLayer)
+
+  // graphic转geojson
+ 
+}// 这个是圆圈
+
 //  map.flyToPoint([103.085061, 26.5109])
   // 绑定当前项目的默认右键菜单
   map.bindContextMenu(getDefaultContextMenu(map))

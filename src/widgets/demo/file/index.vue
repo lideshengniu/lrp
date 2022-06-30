@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel :visible="true" top="50" right="50" bottom="70" width="400" v-if="false">
+  <mars-pannel :visible="true" top="50" right="50" bottom="70" width="400" v-if="true">
     <!-- 右侧图表面板-->
     <div class="bg">
       <div class="_item_top">

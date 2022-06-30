@@ -62,9 +62,15 @@ const store: StoreOptions<WidgetState> = {
         component: markRaw(defineAsyncComponent(() => import("@mars/widgets/demo/line/index.vue"))),
         name: "line",
         group: "tools2"
+        // autoDisable: true
+      },
+      {
+        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/demo/point/index.vue"))),
+        name: "point",
+        group: "tools3"
       }
     ],
-    openAtStart: ["query-poi", "toolbar", "geojson", "file", "line"]
+    openAtStart: ["query-poi", "toolbar", "geojson"]
   }
 }
 
