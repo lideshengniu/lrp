@@ -200,6 +200,7 @@ export default {
   z-index: 1000;
 
   background-image: url(../assets/images/pannel-bg.png);
+  //   background-color: @mars-primary-color-self;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 

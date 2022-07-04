@@ -70,7 +70,8 @@ const store: StoreOptions<WidgetState> = {
         group: "tools3"
       }
     ],
-    openAtStart: ["query-poi", "toolbar", "geojson"]
+    // openAtStart: ["query-poi", "toolbar", "geojson"]
+    openAtStart: []
   }
 }
 

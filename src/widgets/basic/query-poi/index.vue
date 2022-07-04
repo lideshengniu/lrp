@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel customClass="query-poi-pannel" top="10" left="10">
+  <mars-pannel customClass="query-poi-pannel" top="90" left="10">
     <div class="query-poi">
       <div class="query-poi__search">
         <mars-input
