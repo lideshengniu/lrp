@@ -40,7 +40,7 @@ export function addDemoGraphic2(graphicLayer) {
         speed: 10
       }),
       label: {
-        text: "我是原始的\n测试换行",
+        // text: "我是原始的\n测试换行",
         font_size: 18,
         color: "#ffffff",
         pixelOffsetY: -10,
@@ -74,7 +74,7 @@ export function addDemoGraphic3(graphicLayer) {
         speed: 20
       }),
       label: {
-        text: "我是原始的\n测试换行",
+        // text: "我是原始的\n测试换行",
         font_size: 18,
         color: "#ffffff",
         pixelOffsetY: -10,

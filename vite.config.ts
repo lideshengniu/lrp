@@ -20,8 +20,21 @@ export default ({ mode }: ConfigEnv) => {
     server: {
       host: "localhost",
       https: false,
-      port: 3002
+      port: 3002,
+      proxy: {
+        "/api": {
+          target: "http://124.221.236.190:9001/",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, "")
+        },
+        "/test": {
+          target: "http://124.221.236.190:9001/geoserver/wfs",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, "")
+        }
+      }
     },
+
     define: {
       "process.env": {
         mode: mode,

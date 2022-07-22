@@ -39,6 +39,7 @@ import { key } from "@mars/common/store/test"
 onUnmounted(() => {
   disableAll(true)
 })
+
 let trueif
 trueif = true
 const showif = () => {

@@ -1,11 +1,10 @@
 <template>
-  <mars-dialog title="隐患点" right='10' top="60" width="300">
-  <ul class="point">
-    <li v-for="(item,i) in points" :key="i" class="point-card" :class="{'active-card':active === item.uuid}"  @click ='changePoints(i,item)'>
-    <div><img class="icon"  :src="`img/points/${i+1}.png`"/> {{item.name}}</div>
-    </li>
-  </ul>
-  
+  <mars-dialog title="隐患点" right="10" top="60" width="300">
+    <ul class="point">
+      <li v-for="(item, i) in points" :key="i" class="point-card" :class="{ 'active-card': active === item.uuid }" @click="changePoints(i, item)">
+        <div><img class="icon" :src="`img/points/${i + 1}.png`" /> {{ item.name }}</div>
+      </li>
+    </ul>
   </mars-dialog>
 </template>
 <script lang="ts" setup>
@@ -13,45 +12,44 @@ import { onUnmounted, reactive, ref, onMounted } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import { useWidget } from "@mars/common/store/widget"
 import * as mapWork from "./map"
-let position 
+let position
 const { activate, disable, isActivate, updateWidget } = useWidget()
 useLifecycle(mapWork)
 const points = ref<any[]>([])
 const active = ref("")
 onMounted(() => {
-    const points = mapWork.getGraphics()
-    console.log("point")
-    console.log(points)
-    initData(points)
+  const points = mapWork.getGraphics()
+  console.log("point")
+  console.log(points)
+  initData(points)
 })
-function initData(e:any) {
-    points.value = e.graphics.map((m:any) => {
-        if (m.isAdded && m.show) {
-            active.value = m.uuid
-           
-        }
-         console.log("m")
-            console.log(m)
-        return {
-            name: m.name,
-            uuid: m.uuid,
-            widget: m.options.widget
-        }
-    })
+function initData(e: any) {
+  points.value = e.graphics.map((m: any) => {
+    if (m.isAdded && m.show) {
+      active.value = m.uuid
+    }
+    console.log("m")
+    console.log(m)
+    return {
+      name: m.name,
+      uuid: m.uuid,
+      widget: m.options.widget
+    }
+  })
 }
-function changePoints(i:any, item:any) {
-    mapWork.changePoints((active.value = i))
-    console.log("item")
-    console.log(item)
-     activate(item.widget)
+function changePoints(i: any, item: any) {
+  mapWork.changePoints((active.value = i))
+  console.log("item")
+  console.log(item)
+  activate(item.widget)
 }
 onUnmounted(() => {
   // 销毁操作
 })
 </script>
 <style scoped lang="less">
-.point{
-      height: calc(100% - 40px);
+.point {
+  height: calc(100% - 40px);
 }
 .point-card {
   display: inline-block;

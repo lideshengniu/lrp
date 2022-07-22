@@ -2,11 +2,14 @@
   <mars-pannel customClass="base-pannel" right="10" top="130" height="70px">
     <template v-for="(item, i) in data" :key="i">
       <div v-if="item.widget && !item.children" class="toolbar-item" @click="showWidget(item.widget)">
-        <mars-icon class="xx" :icon="item.icon" width="30"></mars-icon>
-        <span class="title">{{ item.name }}</span>
+        <div class="icon">
+          <mars-icon :icon="item.icon" width="30"></mars-icon>
+
+          <span class="title">{{ item.name }}</span>
+        </div>
       </div>
       <mars-dropdown-menu v-if="item.children && !item.widget" trigger="hover" placement="bottomRight">
-        <div class="toolbar-item">
+        <div class="toolbar-item icon">
           <mars-icon :icon="item.icon" width="18"></mars-icon>
           <span class="title">{{ item.name }}</span>
           <mars-icon icon="down" width="18"></mars-icon>
@@ -90,6 +93,10 @@ const clickMenu = ({ key }: any) => {
   }
   .mars-icon {
     margin-right: 5px;
+  }
+  .icon {
+    // background-color: green;
+    margin-top: 10px;
   }
 }
 </style>

@@ -277,7 +277,7 @@
 
       { "id": 40, "name": "栅格数据", "type": "group" },
       { "id": 4020, "pid": 40, "name": "OGC WMS服务", "type": "group" },
- 
+
       {
         "pid": 4020,
         "name": "道路线",
@@ -514,7 +514,7 @@
         "popup": "名称：{NAME}",
         "center": { "lat": 31.814176, "lng": 117.225362, "alt": 5105.3, "heading": 359.2, "pitch": -83.1 }
       },
- 
+
       { "id": 3060, "pid": 30, "name": "CZML数据", "type": "group" },
       {
         "id": 306010,
@@ -537,7 +537,8 @@
         "onWidget": "control-clock",
         "radio": true,
         "flyTo": true
-      }, { "id": 3050, "pid": 30, "name": "KML数据", "type": "group" },
+      },
+      { "id": 3050, "pid": 30, "name": "KML数据", "type": "group" },
       { "pid": 3050, "type": "kml", "name": "海上安全警告", "url": "../BHT.kml", "popup": "all", "symbol": {}, "flyTo": true },
       {
         "pid": 3050,
@@ -575,11 +576,58 @@
         "center": { "lat": 31.815363, "lng": 117.215958, "alt": 107.35, "heading": 90.7, "pitch": -26.1 }
       },
       { "id": 2040, "pid": 20, "name": "城市白模", "type": "group" },
-       { "id": 99, "name": "数据图层", "type": "group" }
- 
+      { "id": 99, "name": "数据图层", "type": "group" },
+      { "id": 100, "name": "图层", "type": "group" },
+      {
+        "pid": 100,
+        "id": 101,
+        "name": "白鹤滩图层",
+        "type": "graphic",
+        "zIndex": 100,
+        "show": false,
+        "flyTo": true,
+        "data": [
+          {
+            "positions": [
+              [103.1828528375, 26.7822882483],
+              [102.8464162955, 26.3648549463]
+            ],
+            "style": {
+              "image": "baihetan.png",
+              "clampToGround": true
+            },
+            "type": "rectangle"
+          }
+        ]
+      },
+      {
+        "pid": 100,
+        "id": 1001,
+        "name": "白鹤滩路线",
+        "url": "/img/road.json",
+        "type": "geojson",
+        "zIndex": 1000,
+        "symbol": { "type": "polyline", "styleOptions": { "width": 10, "clampToGround": true, "color": "rgb(0,191,255)" } },
+        "show": true
+      },
+      { "id": 102, "name": "图层points", "type": "group" },
+      {
+        "pid": 102,
+        "id": 1000,
+        "type": "wfs",
+        "name": "baihet",
+        "show": false,
+        "url": "/test",
+        "layer": "sf:bht2",
+        "zIndex": 10,
+        "graphicOptions": { "show": true },
+        "clustering": { "clampToGround": true, "radius": 1, "color": "red" },
+        "chinaCRS": "WGS84",
+        "symbol": {
+          "type": "point",
+          "styleOptions": { "opacity": 0.0, "color": "rgba(255,255,255,0)", "visibleDepth": true, "pixelSize": 1, "distanceDisplayCondition_near": 5 }
+        }
+      }
     ]
-  },
-  "heishui": {
-    "url": "../baihetan.png"
   }
 }

@@ -1,42 +1,42 @@
 <template>
-    <mars-dialog  title="形变" top="70" left="50" bottom="50" width="400" >
-      <div class="bg container-last-chart">
-        <div class="right_item">
-          <div class="_item_top item_bottom">
-            <div class="_item_title">形变值曲线</div>
-          </div>
-          <div class="_item_full_box">
-            <div class="bar">
-              <div id="line" ref="line" class="bar_chart"></div>
-            </div>
+  <mars-dialog title="形变" top="80" left="60" bottom="50" width="400">
+    <div class="bg container-last-chart">
+      <div class="right_item">
+        <div class="_item_top item_bottom">
+          <div class="_item_title">形变值曲线</div>
+        </div>
+        <div class="_item_full_box">
+          <div class="bar">
+            <div id="line" ref="line" class="bar_chart"></div>
           </div>
         </div>
       </div>
-      <div class="bg container-last-chart">
-        <div class="right_item">
-          <div class="_item_top item_bottom">
-            <div class="_item_title">形变速度值曲线</div>
-          </div>
-          <div class="_item_full_box">
-            <div class="bar">
-              <div id="line2" ref="line2" class="bar_chart"></div>
-            </div>
+    </div>
+    <div class="bg container-last-chart">
+      <div class="right_item">
+        <div class="_item_top item_bottom">
+          <div class="_item_title">形变速度值曲线</div>
+        </div>
+        <div class="_item_full_box">
+          <div class="bar">
+            <div id="line2" ref="line2" class="bar_chart"></div>
           </div>
         </div>
       </div>
-      <div class="bg container-last-chart">
-        <div class="right_item">
-          <div class="_item_top item_bottom">
-            <div class="_item_title">能耗趋势</div>
-          </div>
-          <div class="_item_full_box">
-            <div class="bar">
-              <div id="line3" ref="line3" class="bar_chart"></div>
-            </div>
+    </div>
+    <div class="bg container-last-chart">
+      <div class="right_item">
+        <div class="_item_top item_bottom">
+          <div class="_item_title">能耗趋势</div>
+        </div>
+        <div class="_item_full_box">
+          <div class="bar">
+            <div id="line3" ref="line3" class="bar_chart"></div>
           </div>
         </div>
       </div>
-    </mars-dialog>
+    </div>
+  </mars-dialog>
 </template>
 <script lang="ts" setup>
 import { nextTick, onMounted, ref } from "vue"

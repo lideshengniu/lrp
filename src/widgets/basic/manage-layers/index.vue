@@ -65,6 +65,7 @@ const checkedChange = (keys: string[], e: any) => {
     // 特殊处理同目录下的单选的互斥的节点，可在config对应图层节点中配置"radio":true即可
     if (layer.options?.radio && e.checked) {
       // 循环所有的图层
+      console.log("layer", layer.options)
       for (const i in layersObj) {
         const item = layersObj[i]
         // 循环所有的打开的图层
@@ -186,10 +187,17 @@ function flyTo(item: any) {
 
 function initTree() {
   const layers = mapWork.getLayers()
+  // eslint-disable-next-line array-callback-return
+  // const layers = layerss.filter((each) => {
+  //   return (each.options.id = 100)
+  // })
+  console.log("layers", layers)
+
   for (let i = layers.length - 1; i >= 0; i--) {
+    // if (layers[i].options.id === 100) { 指定图层
     const layer = layers[i] // 创建图层
 
-    if (!layer._hasMapInit && layer.pid === -1 && layer.id !== 99) {
+    if (!layer._hasMapInit && layer.pid === -1 && layer.id !== 99 && layer.id === 100) {
       layer.pid = 99 // 示例中创建的图层都放到99分组下面
     }
 
@@ -231,6 +239,7 @@ function initTree() {
     })
   })
 }
+// }
 function findChild(parent: any, list: any[]) {
   return list
     .filter((item: any) => item.pid === parent.id)

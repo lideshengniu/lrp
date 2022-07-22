@@ -7,28 +7,24 @@
  * @copyright 火星科技 mars3d.cn
  * @author 火星吴彦祖 2022-02-19
  */
-import { computed, onUnmounted, onMounted, h, ref } from "vue"
+import { computed, onUnmounted, onMounted, h, ref, nextTick } from "vue"
 import * as mars3d from "mars3d"
 import { getQueryString } from "@mars/utils/mars-util"
 import { getDefaultContextMenu } from "@mars/utils/getDefaultContextMenu"
 import { $alert, $message } from "@mars/components/mars-ui/index"
 import axios from "axios"
+import { useWidget } from "@mars/common/store/widget"
 import path from "path"
 import { Turkey } from "@icon-park/svg"
- const Cesium = mars3d.Cesium
+import { callbackify } from "util"
+import { graphicLayer } from "@mars/widgets/demo/point/map"
+const Cesium = mars3d.Cesium
 const a = {
   p: ""
 }
-
+const { activate, disable, isActivate, updateWidget } = useWidget()
 const requests = axios.create({ timeout: 5000 })
-// const l:string = "path.join(__dirname ," public/baihetan.png")"
-// requests({
-//   url: "public/config/data.json",
-//   method: "get"
-// }).then((response) => {
-//   a.p = response.data.photo
-// })
-// console.log(a.p)
+
 const props = withDefaults(
   defineProps<{
     url: string
@@ -41,7 +37,8 @@ const props = withDefaults(
     options: () => ({})
   }
 )
-
+let roaddata
+let road_test
 // 用于存放地球组件实例
 let map: mars3d.Map // 地图对象
 let A
@@ -50,30 +47,31 @@ const withKeyId = computed(() => `mars3d-container-${props.mapKey}`)
 
 onMounted(() => {
   // 获取配置
+
   mars3d.Util.fetchJson({ url: props.url }).then((data: any) => {
     initMars3d({
       // 合并配置项
       ...data.map3d,
       ...props.options
     })
-
-    // const baihetan = data.heishui.url
-    // console.log(baihetan)
-    // A = baihetan
   })
 })
-// console.log(A)
+
+console.log(roaddata, "$$$$$$$$")
 // onload事件将在地图渲染后触发
 const emit = defineEmits(["onload"])
 const initMars3d = (option: any) => {
   map = new mars3d.Map(withKeyId.value, option)
+  // $$$$$$$$$$$$$$$$$$$
+  // const bhtroad = map.getLayer(1001, "id")
+  const c = map.getLayerById(100)
+  console.log(c, "cccc")
   // 问题处
   const optionss = { pid: 99, id: 2022, name: "白鹤滩", show: false, type: "graphic" }
   const graphicLayer = new mars3d.layer.GraphicLayer(optionss)
- 
+
   map.addLayer(graphicLayer)
   addDemoGraphic4(graphicLayer)
-//   addDemoGraphic2(graphicLayer)
   function addDemoGraphic4(graphicLayer) {
     const graphicZP = new mars3d.graphic.RectangleEntity({
       positions: [
@@ -88,58 +86,37 @@ const initMars3d = (option: any) => {
     })
     graphicLayer.addGraphic(graphicZP)
   }
-//  function addDemoGraphic6(graphicLayer) {
-//   let _rotation = Math.random()
-//   const graphic = new mars3d.graphic.CircleEntity({
-//     position: new mars3d.LngLatPoint(116.326329, 30.84786, 421.7),
-//     style: {
-//       radius: 1000.0,
-//       // 扫描材质
-//       material: mars3d.MaterialUtil.createMaterialProperty(mars3d.MaterialType.CircleScan, {
-//         image: "img/textures/circle_bg.png",
-//         color: "#ffff00"
-//       }),
-//       stRotation: new Cesium.CallbackProperty(function (e) {
-//         _rotation += 0.1
-//         return _rotation
-//       }, false)
-//     },
-//     attr: { remark: "示例6" },
-//     hasEdit: false // 不允许编辑
-//   })
-//   graphicLayer.addGraphic(graphic) // 还可以另外一种写法: graphic.addTo(graphicLayer)
-// }
-function addDemoGraphic2(graphicLayer) {
-  const graphic = new mars3d.graphic.CircleEntity({
-    position: [103.034716, 26.478833],
-    style: {
-      radius: 200,
-      height: 200,
-      clampToGround: Turkey,
-      material: mars3d.MaterialUtil.createMaterialProperty(mars3d.MaterialType.CircleWave, {
-        color: "#ffff00",
-        count: 2,
-        speed: 20
-      }),
-      label: {
-        text: "我是原始的\n测试换行",
-        font_size: 18,
-        color: "#ffffff",
-        pixelOffsetY: -10,
-        distanceDisplayCondition: true,
-        distanceDisplayCondition_far: 500000,
-        distanceDisplayCondition_near: 0
-      }
-    },
-    attr: { remark: "示例2" }
-  })
-  graphicLayer.addGraphic(graphic) // 还可以另外一种写法: graphic.addTo(graphicLayer)
 
-  // graphic转geojson
- 
-}// 这个是圆圈
+  function addDemoGraphic2(graphicLayer) {
+    const graphic = new mars3d.graphic.CircleEntity({
+      position: [103.034716, 26.478833],
+      style: {
+        radius: 200,
+        height: 200,
+        clampToGround: Turkey,
+        material: mars3d.MaterialUtil.createMaterialProperty(mars3d.MaterialType.CircleWave, {
+          color: "#ffff00",
+          count: 2,
+          speed: 20
+        }),
+        label: {
+          text: "我是原始的\n测试换行",
+          font_size: 18,
+          color: "#ffffff",
+          pixelOffsetY: -10,
+          distanceDisplayCondition: true,
+          distanceDisplayCondition_far: 500000,
+          distanceDisplayCondition_near: 0
+        }
+      },
+      attr: { remark: "示例2" }
+    })
+    graphicLayer.addGraphic(graphic) // 还可以另外一种写法: graphic.addTo(graphicLayer)
 
-//  map.flyToPoint([103.085061, 26.5109])
+    // graphic转geojson
+  } // 这个是圆圈
+
+  //  map.flyToPoint([103.085061, 26.5109])
   // 绑定当前项目的默认右键菜单
   map.bindContextMenu(getDefaultContextMenu(map))
 
@@ -184,6 +161,56 @@ function addDemoGraphic2(graphicLayer) {
   })
 
   // map构造完成后的一些处理
+  const showEditor = (e: any) => {
+    const graphic = e.graphic
+    if (!graphic._conventStyleJson) {
+      graphic.options.style = graphic.toJSON().style // 因为示例中的样式可能有复杂对象，需要转为单个json简单对象
+      graphic._conventStyleJson = true // 只处理一次
+    }
+
+    if (!isActivate("graphic-editor")) {
+      activate({
+        name: "graphic-editor",
+        data: { graphic: graphic }
+      })
+    } else {
+      updateWidget("graphic-editor", {
+        data: { graphic: graphic }
+      })
+    }
+  }
+  const bhtroad = map.getLayer(1001, "id")
+  const eventTarget = new mars3d.BaseClass()
+  eventTarget.on("graphicEditor-start", async (e: any) => {
+    showEditor(e)
+  })
+  eventTarget.on("graphicEditor-update", async (e: any) => {
+    showEditor(e)
+  })
+  eventTarget.on("graphicEditor-stop", async (e: any) => {
+    setTimeout(() => {
+      if (!bhtroad.isEditing) {
+        disable("graphic-editor")
+      }
+    }, 100)
+  })
+  function bindLayerEvent() {
+    bhtroad.on(mars3d.EventType.drawCreated, function (e) {
+      eventTarget.fire("graphicEditor-start", e)
+    })
+
+    bhtroad.on(
+      [mars3d.EventType.editStart, mars3d.EventType.editMovePoint, mars3d.EventType.editStyle, mars3d.EventType.editRemovePoint],
+      function (e) {
+        eventTarget.fire("graphicEditor-update", e)
+      }
+    )
+
+    bhtroad.on([mars3d.EventType.editStop, mars3d.EventType.removeGraphic], function (e) {
+      eventTarget.fire("graphicEditor-stop", e)
+    })
+  }
+  bindLayerEvent()
   onMapLoad()
 
   emit("onload", map)
@@ -203,6 +230,68 @@ function onMapLoad() {
     $alert(item.NAME)
   }
 
+  // @2022 7.22
+  // 添加右键沉降
+
+  // 组件卸载之前销毁mars3d实例
+  // 给road绑定编辑
+  const bhtpoints = map.getLayer(1000, "id")
+  bhtpoints.bindContextMenu([
+    {
+      text: "沉降量",
+      show: true,
+      callback: (e) => {
+        const graphic = e.graphic
+        console.log(graphic.attr)
+        const html = `${graphic.attr.D_20220217}`
+        alert(html)
+      }
+    }
+  ])
+  const bhtroad = map.getLayer(1001, "id")
+
+  bhtroad.bindContextMenu([
+    {
+      text: "开始编辑对象",
+      show: function (e) {
+        const graphic = e.graphic
+        if (!graphicLayer || !graphic.startEditing) {
+          return false
+        }
+        return !graphic.isEditing
+      },
+      callback: (e) => {
+        const graphic = e.graphic
+        if (!graphic) {
+          return false
+        }
+        if (graphic) {
+          bhtroad.startEditing(graphic)
+        }
+      }
+    },
+    {
+      text: "停止编辑对象",
+      icon: "fa fa-edit",
+      show: function (e) {
+        const graphic = e.graphic
+        if (!graphic) {
+          return false
+        }
+        return graphic.isEditing
+      },
+      callback: (e) => {
+        const graphic = e.graphic
+        if (!graphic) {
+          return false
+        }
+        if (graphic) {
+          bhtroad.stopEditing(graphic)
+        }
+      }
+    }
+  ])
+  console.log("#####", road_test)
   // 用于 config.json中配置的图层，绑定额外方法和参数
   const tiles3dLayer = map.getLayer(204012, "id") // 上海市区
   if (tiles3dLayer) {
@@ -224,7 +313,6 @@ function onMapLoad() {
   }
 }
 
-// 组件卸载之前销毁mars3d实例
 onUnmounted(() => {
   if (map) {
     map.destroy()

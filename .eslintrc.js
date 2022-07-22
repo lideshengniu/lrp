@@ -18,7 +18,7 @@ module.exports = {
     "@typescript-eslint/explicit-module-boundary-types": "off", // ts：是否需要显式定义函数将返回什么类型
     "@typescript-eslint/ban-ts-comment": "off", // ts： 禁止ts注释
     "@typescript-eslint/no-unused-vars": "off", // ts：允许定义未引用使用的变量
-    "vue/multi-word-component-names": ["off", { ignores: ["index", "App"] }], // vue：多词组件名称
+    "vue/multi-word-component-names": ["off", { ignores: ["index", "App", "button.ce"] }], // vue：多词组件名称
     "vue/comment-directive": ["off", { reportUnusedDisableDirectives: false }], // vue：允许在标签中写 HTML 注释。
     "vue/no-deprecated-slot-attribute": "off", // 允许使用slot
     "vue/valid-v-slot": "off",

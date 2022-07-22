@@ -68,10 +68,23 @@ const store: StoreOptions<WidgetState> = {
         component: markRaw(defineAsyncComponent(() => import("@mars/widgets/demo/point/index.vue"))),
         name: "point",
         group: "tools3"
+      },
+      {
+        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/graphic-editor/index.vue"))),
+        name: "graphic-editor",
+        meta: {
+          props: {
+            position: {
+              left: 50,
+              top: 10,
+              bottom: 50
+            }
+          }
+        }
       }
     ],
     // openAtStart: ["query-poi", "toolbar", "geojson"]
-    openAtStart: []
+    openAtStart: ["point"]
   }
 }
 
