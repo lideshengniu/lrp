@@ -194,6 +194,7 @@ const initMars3d = (option: any) => {
       }
     }, 100)
   })
+  // nihao
   function bindLayerEvent() {
     bhtroad.on(mars3d.EventType.drawCreated, function (e) {
       eventTarget.fire("graphicEditor-start", e)
